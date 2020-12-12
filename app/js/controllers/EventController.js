@@ -1,13 +1,12 @@
 'use strict';
 
 eventsApp.controller('EventController', 
-    function EventController($scope, eventData, $anchorScroll) {
+    function EventController($scope, eventData, $routeParams, $route) {
         $scope.sortorder = 'name';
-        eventData.getEvent()
-            .$promise
-            .then(function(event) { $scope.event = event; })
-            .catch(function(response) { console.log(response);}
-        );
+        $scope.event = $route.current.locals.event
+        $scope.reload = function() {
+            $route.reload();
+        }
 
         $scope.upVoteSession = function(session) {
           session.upVoteCount++;
