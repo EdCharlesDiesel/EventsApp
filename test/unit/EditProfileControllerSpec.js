@@ -17,7 +17,7 @@ describe('EditProfileControllerSpec', function(){
         {'$scope':scope, gravatarUrlBuilder: mockGravatarUrlBuilder});
 
         var email = 'ckhotso@gmail.com';
-
+        scope.getGravatarUrl(email);
         expect(mockGravatarUrlBuilder.buildGravatarUrl.calledWith(email)).toBe(true);
     })
 });
