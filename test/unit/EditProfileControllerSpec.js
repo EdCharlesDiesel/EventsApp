@@ -1,23 +1,23 @@
 'use strict';
 
-describe('EditProfileControllerSpec', function(){
+describe('EditProfileControllerSpec', function() {
+  var $controllerConstructor, scope, mockGravatarUrlBuilder;
 
-    var $controllerContructor, scope, mockGravatarUrlBuilder;
-    beforeEach(module("eventsApp"));
+  beforeEach(module("eventsApp"));
 
+  beforeEach(inject(function($controller, $rootScope) {
+    $controllerConstructor = $controller;
+    scope = $rootScope.$new();
+    mockGravatarUrlBuilder = sinon.stub({buildGravatarUrl: function() {}})
+  }));
 
-    beforeEach(inject(function ($controller, $rootScope) {
-        $controllerContructor = $controller;
-        scope = $rootScope.$new();
-        mockGravatarUrlBuilder = sinon.stub({buildGravatarUrl:function(){}})
-    }));
+  it('should build the gravatar with the given email', function() {
+    $controllerConstructor("EditProfileController",
+        {'$scope': scope, gravatarUrlBuilder: mockGravatarUrlBuilder});
+    var email = "joe@joe.com";
 
-    it('should build the gravatar with the given email', function(){
-        $controllerContructor("EditProfileController",
-        {'$scope':scope, gravatarUrlBuilder: mockGravatarUrlBuilder});
+    scope.getGravatarUrl(email);
 
-        var email = 'ckhotso@gmail.com';
-        scope.getGravatarUrl(email);
-        expect(mockGravatarUrlBuilder.buildGravatarUrl.calledWith(email)).toBe(true);
-    })
+    expect(mockGravatarUrlBuilder.buildGravatarUrl.calledWith(email)).toBe(true);
+  })
 });
